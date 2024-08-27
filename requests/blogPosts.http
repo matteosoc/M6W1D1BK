@@ -1,0 +1,33 @@
+GET  http://localhost:3000/blogPosts
+
+###
+GET http://localhost:3000/blogPosts/66c8c7b57b2c8e08afa61732/
+
+###
+POST http://localhost:3000/blogPosts
+Content-Type: application/json
+
+{
+    "category": "nuova",
+    "title": "come si cambia",
+    "cover": "per.jpg",
+    "readTime": {
+        "value" : 18,
+        "unit": "sec"
+    },
+    "author": "d@prova.it",
+    "content": "<p>vamos</p>"
+}
+
+
+###
+PUT http://localhost:3000/blogPosts/66c8c7b57b2c8e08afa61732
+Content-Type: application/json
+
+{
+    "title": "titolo modificato"
+}
+
+
+###
+DELETE http://localhost:3000/blogPosts/66b61252aa100fc0e225563f
