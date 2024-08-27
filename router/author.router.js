@@ -1,7 +1,7 @@
 import express from 'express';
 import uploadLocal from '../middlewares/uploadLocal.js';
 import * as authorsControllers from '../controllers/authors.contrellers.js'
-import uploadCloudinary from '../middlewares/uploadCloudinary.js';
+import { uploadCloudinaryAvatar } from '../middlewares/uploadCloudinary.js';
 
 
 const authorRouter = express.Router();
@@ -13,7 +13,7 @@ authorRouter.get("/", authorsControllers.readMultiple)
 authorRouter.get("/:id", authorsControllers.readOne)
 
 // inserire un autore nel database + upload con cloudinary
-authorRouter.post("/", uploadCloudinary.single('avatar'), authorsControllers.createOne)
+authorRouter.post("/", uploadCloudinaryAvatar.single('avatar'), authorsControllers.createOne)
 
 // inserire un autore nel database + upload in locale
 //authorRouter.post("/", uploadLocal.single('avatar'), authorsControllers.createOne)
@@ -25,7 +25,7 @@ authorRouter.put("/:id", authorsControllers.editOne)
 authorRouter.delete("/:id", authorsControllers.deleteOne)
 
 // modificare il contenuto di una risorsa sul server
-authorRouter.patch('/:authorId/avatar/', uploadCloudinary.single('avatar'), authorsControllers.patchAvatar )
+authorRouter.patch('/:authorId/avatar/', uploadCloudinaryAvatar.single('avatar'), authorsControllers.patchAvatar )
 
 //invia email
 //authorRouter.post('/send-mail', authorsControllers.sendMailMiddleware);

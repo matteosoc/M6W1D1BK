@@ -51,6 +51,16 @@ export const createOne = async (req,res) => {
     try {
         const createdBlogPost = await newBlogPost.save()
         res.status(201).send(createdBlogPost)
+
+        await transport.sendMail(
+            {
+                from: 'noreply@striveblog.com', // mittente
+                to: createdBlogPost.author, // destinatario
+                subject: 'Benvenuto su Strive Blog', // oggetto
+                text: `Benvenuto ${createdBlogPost.author}`, // testo visualizzato se non ha supporto html
+                html: `<b>Benvenuto ${createdBlogPost.author}</b>`, // html body
+            }
+        )
     }
 
     catch (error) {
@@ -93,3 +103,19 @@ export const deleteOne = async (req,res) => {
         res.status(400).send({message: 'errore nella modifica'})
     }
 }
+
+// caricare immagine articolo
+export const patchCover = async (req, res) => {
+    const id = req.params.blogPostId
+
+    try {
+        const blogPost = await BlogPost.findByIdAndUpdate(id, { cover: req.file.path })
+        // await blogPost.save()
+
+        res.status(200).send(blogPost)
+    }
+    catch (error) {
+        console.log(error)
+        res.status(400).send({ message: 'errore sulla patch avatar' })
+    }
+};

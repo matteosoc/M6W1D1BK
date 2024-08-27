@@ -1,6 +1,8 @@
 import express from 'express';
 import BlogPost from '../models/blogPost.js';
 import * as blogPostsController from '../controllers/blogPosts.controller.js';
+import { uploadCloudinaryCover } from '../middlewares/uploadCloudinary.js';
+
 
 const blogPostRouter = express.Router();
 
@@ -18,5 +20,10 @@ blogPostRouter.put("/:id", blogPostsController.editOne);
 
 //eliminare un articolo del blog
 blogPostRouter.delete("/:id", blogPostsController.deleteOne)
+
+// carica immagine articolo
+blogPostRouter.patch('/:blogPostId/cover/', uploadCloudinaryCover.single('cover'), blogPostsController.patchCover )
+
+
 
 export default blogPostRouter;
