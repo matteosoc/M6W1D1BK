@@ -8,15 +8,15 @@ POST http://localhost:3000/blogPosts
 Content-Type: application/json
 
 {
-    "category": "nuova",
-    "title": "come si cambia",
-    "cover": "per.jpg",
+    "category": "email test",
+    "title": "vai",
+    "cover": "su.jpg",
     "readTime": {
-        "value" : 18,
-        "unit": "sec"
+        "value" : 50,
+        "unit": "min"
     },
-    "author": "d@prova.it",
-    "content": "<p>vamos</p>"
+    "author": "d@plova.it",
+    "content": "<p>su sus us</p>"
 }
 
 

@@ -7,7 +7,7 @@ import { CloudinaryStorage } from "multer-storage-cloudinary";
 
 
 // configurazione e creazione del cloud
-const uploadCloudinary = multer({
+export const uploadCloudinaryAvatar = multer({
     storage: new CloudinaryStorage({
         cloudinary,
         params: {
@@ -19,4 +19,14 @@ const uploadCloudinary = multer({
     })
 })
 
-export default uploadCloudinary;
+export const uploadCloudinaryCover = multer({
+    storage: new CloudinaryStorage({
+        cloudinary,
+        params: {
+            folder: 'cover', // cartella di destinazione
+            cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+            api_key: process.env.CLOUDINARY_API_KEY,
+            api_secret: process.env.CLOUDINARY_API_SECRET,
+        }
+    })
+})
