@@ -2,6 +2,7 @@ import express from 'express';
 import BlogPost from '../models/blogPost.js';
 import * as blogPostsController from '../controllers/blogPosts.controller.js';
 import { uploadCloudinaryCover } from '../middlewares/uploadCloudinary.js';
+import * as commentController from '../controllers/comment.controller.emb.js'
 
 
 const blogPostRouter = express.Router();
@@ -24,6 +25,21 @@ blogPostRouter.delete("/:id", blogPostsController.deleteOne)
 // carica immagine articolo
 blogPostRouter.patch('/:blogPostId/cover/', uploadCloudinaryCover.single('cover'), blogPostsController.patchCover )
 
+
+// restituisce la lista dei commenti di un singolo post
+blogPostRouter.get("/:id/comments", commentController.readAllComments);
+
+// restituisce il singolo commento di un post
+blogPostRouter.get("/:id/comments/:commentId", commentController.readOneComment);
+
+// aggiunge un commento
+blogPostRouter.post("/:id", commentController.createOneComment);
+
+// modificare un commento dell'articolo
+blogPostRouter.put("/:id/comments/:commentId", commentController.editOneComment);
+
+// eliminare un commento 
+blogPostRouter.delete("/:id/comments/:commentId", commentController.deleteOneComment)
 
 
 export default blogPostRouter;
