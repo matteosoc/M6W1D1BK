@@ -1,7 +1,7 @@
 import { Schema } from "mongoose";
 import BlogPost from "./blogPost";
 
-const commentsSchema = new Schema(
+const commentSchema = new Schema(
     {
         content: {
             type: String,
@@ -18,3 +18,4 @@ const commentsSchema = new Schema(
     }
 );
 
+export default commentSchema;

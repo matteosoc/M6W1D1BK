@@ -1,5 +1,16 @@
 import { Schema, model } from "mongoose";
-import Author from '../models/author.js'
+// import commentSchema from "./comment.emb.js";
+
+const commentSchema = new Schema(
+    {
+        content: {
+            type: String,
+            minLength: 3,
+            maxLength: 100,
+            trim: true, //toglie spazi vuoti all'inizio e alla fine
+        }
+    }
+);
 
 const blogPostSchema = new Schema({
     category: String,
@@ -27,7 +38,8 @@ const blogPostSchema = new Schema({
         required: true
         } 
     */
-    content: String
+    content: String,
+    comments: [commentSchema] // array di oggetti di commenti con i valori embeddati (cioè inseriti nello stesso documento)
 }, {
     collection: 'blogPosts'
 })
