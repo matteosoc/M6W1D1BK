@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
-// import commentSchema from "./comment.emb.js";
 
+// commentSchema con embedding
 const commentSchema = new Schema(
     {
         content: {
@@ -21,8 +21,8 @@ const blogPostSchema = new Schema({
         unit: String
     },
     author: {
-        type: String,
-        required: true
+        type: Schema.Types.ObjectId,
+        ref: 'Author'
     }
     , //email dell'autore
     

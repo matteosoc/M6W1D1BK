@@ -1,3 +1,7 @@
+import Comment from "../models/comment.ref.js";
+
+
+// post
 export const createOne = async (req, res) => {
     const blogPostId = req.params.blogPostId;
     const commentInfo = req.body;

@@ -3,9 +3,12 @@ import BlogPost from '../models/blogPost.js';
 import * as blogPostsController from '../controllers/blogPosts.controller.js';
 import { uploadCloudinaryCover } from '../middlewares/uploadCloudinary.js';
 import * as commentController from '../controllers/comment.controller.emb.js'
+//import * as commentController from '../controllers/comment.controller.ref.js';
 
 
 const blogPostRouter = express.Router();
+
+/////////////////////////// BLOG POSTS //////////////////////////////////
 
 // restituisce la lista degli articoli
 blogPostRouter.get("/", blogPostsController.readAll);
@@ -14,7 +17,7 @@ blogPostRouter.get("/", blogPostsController.readAll);
 blogPostRouter.get("/:id", blogPostsController.readOne);
 
 // inserire un blogPost nel database
-blogPostRouter.post("/", blogPostsController.createOne);
+blogPostRouter.post("/", uploadCloudinaryCover.single('cover'), blogPostsController.createOne);
 
 //modificare un articolo blog
 blogPostRouter.put("/:id", blogPostsController.editOne);
@@ -25,6 +28,8 @@ blogPostRouter.delete("/:id", blogPostsController.deleteOne)
 // carica immagine articolo
 blogPostRouter.patch('/:blogPostId/cover/', uploadCloudinaryCover.single('cover'), blogPostsController.patchCover )
 
+
+/////////////////////////// COMMENTS //////////////////////////////////
 
 // restituisce la lista dei commenti di un singolo post
 blogPostRouter.get("/:id/comments", commentController.readAllComments);

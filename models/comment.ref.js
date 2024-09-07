@@ -1,5 +1,4 @@
-import { Schema } from "mongoose";
-import BlogPost from "./blogPost";
+import { Schema, model } from "mongoose";
 
 const commentSchema = new Schema(
     {
@@ -9,7 +8,7 @@ const commentSchema = new Schema(
         },
         blogPost: {
             type: Schema.Types.ObjectId,
-            ref: 'Comment'
+            ref: 'BlogPost'
         },
     },
     {
@@ -18,4 +17,6 @@ const commentSchema = new Schema(
     }
 );
 
-export default commentSchema;
+const Comment = model('Comment', commentSchema)
+
+export default Comment;

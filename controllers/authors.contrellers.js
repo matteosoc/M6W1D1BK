@@ -1,6 +1,7 @@
 import Author from '../models/author.js';
 import 'dotenv/config';
-import transport from '../services/mail.service.js'
+import transport from '../services/mail.service.js';
+import bcrypt from 'bcrypt';
 
 // visualizza tutti autori
 export const readMultiple = async (req, res) => {
@@ -58,11 +59,26 @@ export const readOne = async (req, res) => {
 // crea un nuovo autore
 export const createOne = async (req, res) => {
     const authorData = req.body
+
+
+    // verificare che la mail non sia già utilizzata
+    const author = await Author.findOne({ email: req.body.email });
+
+    // se non c'è avatar prende imposta un immagine random
+    author.avatar = author.avatar ? author.avatar : "https://picsum.photos/40"
+
+    if (author) return res.status(500).send('Mail già in uso');
+
+    // modifica il campo avatar e crea la password criptata dell'utente
     const newAuthor = new Author({
         ...authorData,
-        avatar: req.file.path
+        avatar: req.file.path,
+        password: await bcrypt.hash(req.body.password, 10)
     });
+    
+    // salva il nuovo utente creato
     const createdAuthor = await newAuthor.save()
+
     try {
         res.status(201).send(createdAuthor)
 
@@ -81,6 +97,7 @@ export const createOne = async (req, res) => {
         res.status(400).send({ message: 'qualcosa non va' })
     }
 };
+
 
 // test con upload locale di immagine
 /* export const createOne = async (req, res) => {

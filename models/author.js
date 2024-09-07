@@ -10,8 +10,14 @@ const authorSchema = new Schema({
         lowercase: true, // converte in minuscolo
         trim: true // toglie spazi vuoti
     },
+    password: {
+        type: String,
+        required: true,
+        select: false // non viene mai selezionata o mostrata
+    },
     data: Date,
-    avatar: String
+    avatar: String,
+    // googleId: String
 }, {
     collection: 'authors'
 })
