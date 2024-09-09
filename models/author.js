@@ -12,12 +12,12 @@ const authorSchema = new Schema({
     },
     password: {
         type: String,
-        required: true,
+        // required: true,
         select: false // non viene mai selezionata o mostrata
     },
     data: Date,
     avatar: String,
-    // googleId: String
+    googleId: String
 }, {
     collection: 'authors'
 })

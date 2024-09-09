@@ -58,7 +58,7 @@ export const me = (req, res) => {
 };
 
 
-// export const callbackGoogle = (req, res) => {
-//     // redirect al frontend passandogli il jwt creato in passport nella query string
-//     res.redirect(`http://localhost:3000/login?token=${req.author.token}`)
-// }
+export const callbackGoogle = async (req, res) => {
+    console.log(req)
+    res.redirect(`http://localhost:3000?token=${req.user.jwtToken}`)
+}

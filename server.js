@@ -10,10 +10,17 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors'
 
+import googleStrategy from './config/passport.config.js';
+
+import passport from 'passport';
+
+
 
 const port = process.env.PORT || 4000
 
 const server = express();
+
+passport.use('google', googleStrategy)
 
 // installazioni per fare upload immagini npm i multer morgan helmet cors
 server.use(morgan('dev'))
